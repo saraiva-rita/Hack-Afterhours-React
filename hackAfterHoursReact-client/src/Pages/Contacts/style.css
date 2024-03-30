@@ -1,0 +1,42 @@
+/* CONTACTS */
+.contacts-card {
+  display: flex;
+  justify-content: center;
+}
+
+.contacts-card a {
+  text-decoration: none;
+  color: white;
+}
+
+.contacts-card .card {
+  border: 2px solid #cdd7e2;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 20px 40px;
+  transition: transform 0.3s;
+}
+
+.contacts-card .card:hover {
+  transform: scale(1.05); /* Apply zoom effect on hover */
+}
+
+.contacts-card .card-body {
+  padding: 1.25rem;
+}
+
+.contacts-card .card-img-top {
+  height: 500px;
+  object-fit: cover;
+}
+
+.contacts-card p {
+  font-size: 10px;
+  font-weight: bold;
+  padding: 0px;
+  margin-bottom: 10px;
+}
+
+.contacts-card h5 {
+  margin: 0px;
+}

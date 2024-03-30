@@ -1,0 +1,30 @@
+/* LOGIN/SIGNUP MENU */
+.auth-form-wrapper {
+  max-width: 450px;
+  margin: 40px auto 0;
+}
+.auth-form-wrapper form,
+.auth-form-wrapper label {
+  display: flex;
+  flex-direction: column;
+}
+.auth-form-wrapper form {
+  border: 1px solid white;
+  border-radius: 4px;
+  padding: 30px;
+}
+.auth-form-wrapper input {
+  margin-top: 7px;
+  height: 40px;
+  border-radius: 4px;
+  border: none;
+  padding: 0 8px;
+  margin-bottom: 20px;
+}
+.auth-form-wrapper button {
+  margin-top: 30px;
+}
+.login-a {
+  color: #e6ebf1;
+  text-decoration: underline;
+}

@@ -1,0 +1,37 @@
+/* SPOT CARDS */
+.spots-question h2 {
+  color: #e6ebf1;
+  font-size: 40px;
+  font-weight: 800;
+  text-align: center;
+  margin: 60px;
+}
+h5 {
+  color: #e6ebf1;
+  font-size: 20px;
+}
+
+#main-cards {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.card-img-top {
+  max-width: 27vw;
+  border-radius: 10px;
+  border: 1px solid #cdd7e2;
+}
+.card-img-top:hover {
+  opacity: 0.8;
+  transform: scale(1.01);
+}
+.card-body {
+  text-align: center;
+}
+.card-title {
+  margin: 20px;
+  font-size: 20#e6ebf1;
+}
