@@ -1,14 +1,14 @@
 // Require Mongoose
 const mongoose = require('mongoose');
 
-// Require Fooddrink Model
-const Fooddrink = require('../models/Fooddrink.model.js');
+// Require FoodDrink Model
+const FoodDrink = require('../models/FoodDrink.model.js');
 
 const MONGO_URI =
   process.env.MONGODB_URI ||
   'mongodb://127.0.0.1:27017/hackAfterHoursReact-server';
 
-const fooddrinkSpots = [
+const FoodDrinksSpots = [
   {
     name: 'O Cofre',
     address: 'R. dos Bacalhoeiros 2, 1100-069 Lisboa',
@@ -256,7 +256,7 @@ const fooddrinkSpots = [
   },
 ];
 
-async function insertFooddrink() {
+async function insertFoodDrink() {
   try {
     // establishing the connection with our DB
     let db = await mongoose.connect(MONGO_URI);
@@ -265,10 +265,10 @@ async function insertFooddrink() {
     console.log('Database is now connected');
 
     // Create Food and Drinks Spots in our database with the seeds array
-    let FooddrinkCreated = await Fooddrink.create(fooddrinkSpots);
+    let FoodDrinkCreated = await FoodDrink.create(FoodDrinksSpots);
 
     // Feedback about Food and Drink Spots creation
-    console.log(`Created ${FooddrinkCreated.length} Fooddrink Spots!`);
+    console.log(`Created ${FoodDrinkCreated.length} FoodDrink Spots!`);
 
     // Close the connection
     await mongoose.connection.close();
@@ -276,4 +276,4 @@ async function insertFooddrink() {
     console.log('An error occurred while connecting to DB', error);
   }
 }
-insertFooddrink();
+insertFoodDrink();

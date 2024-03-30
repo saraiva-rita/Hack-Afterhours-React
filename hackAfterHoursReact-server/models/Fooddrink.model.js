@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const fooddrinkSchema = new Schema(
+const foodDrinkSchema = new Schema(
   {
     name: {
       type: String,
@@ -23,7 +23,7 @@ const fooddrinkSchema = new Schema(
     },
     imgUrl: {
       type: String,
-      default: '/public/images/img-default.png',
+      default: './public/images/img-default.png',
     },
     schedule: {
       type: String,
@@ -37,10 +37,11 @@ const fooddrinkSchema = new Schema(
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
+
     timestamps: true,
   }
 );
 
-const Fooddrink = model('Fooddrink', fooddrinkSchema);
+const FoodDrink = model('Fooddrink', foodDrinkSchema);
 
-module.exports = Fooddrink;
+module.exports = FoodDrink;

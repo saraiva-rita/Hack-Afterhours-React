@@ -23,7 +23,7 @@ const leisureSchema = new Schema(
     },
     imgUrl: {
       type: String,
-      default: '/public/images/img-default.png',
+      default: './public/images/img-default.png',
     },
     schedule: {
       type: String,

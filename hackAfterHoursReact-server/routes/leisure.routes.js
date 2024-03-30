@@ -12,11 +12,9 @@ router.get('/leisureSpots', async (req, res) => {
   try {
     // Get all Leisure Spots from our Database via .find() method
     let leisureSpotsFromDB = await Leisure.find();
-    res.render('categories/leisureSpots/leisure.list.hbs', {
-      leisureSpots: leisureSpotsFromDB,
-    });
+    res.render(leisureSpotsFromDB);
   } catch (error) {
-    console.log('Error while getting Leisure Spots', error);
+    res.json('Error while getting Leisure Spots', error);
   }
 });
 
@@ -49,28 +47,33 @@ router.get('/leisureSpots/:leisureId', isLoggedIn, async (req, res) => {
       isFav,
       currentUser,
     });
-  } catch (error) {
-    console.log(error);
+  } catch {
+    (error) => res.json(error);
   }
 });
 
-// FAVORITES SPOTS Actions
 // Add Favorites
 router.post(
   '/leisureSpots/addFavs/:leisureId/',
   isLoggedIn,
-  async (req, res, next) => {
+  async (req, res) => {
     const { leisureId } = req.params;
     const currentUser = req.session.currentUser;
 
     try {
-      const user = await User.findById(currentUser._id);
-      const favSpot = await User.findByIdAndUpdate(currentUser._id, {
+      await User.findById(currentUser._id);
+      await User.findByIdAndUpdate(currentUser._id, {
         $push: { favoriteLeisure: leisureId },
+      });
+      res.json({
+        message: 'This Leisure Spot was added to your favorites successfully.',
       });
       res.redirect(`/leisureSpots/${leisureId}`);
     } catch (error) {
-      console.log(error);
+      res.status(500).json({
+        message:
+          'An error occured while adding the Leisure Spot to your favorites',
+      });
     }
   }
 );
@@ -79,17 +82,17 @@ router.post(
 router.post(
   '/leisureSpots/removeFavs/:leisureId/',
   isLoggedIn,
-  async (req, res, next) => {
+  async (req, res) => {
     const { leisureId } = req.params;
     const currentUser = req.session.currentUser;
     try {
-      const user = await User.findById(currentUser._id);
-      const favSpot = await User.findByIdAndUpdate(currentUser._id, {
+      await User.findById(currentUser._id);
+      await User.findByIdAndUpdate(currentUser._id, {
         $pull: { favoriteLeisure: leisureId },
       });
       res.redirect(`/leisureSpots/${leisureId}`);
-    } catch (error) {
-      console.log(error);
+    } catch {
+      (error) => res.json(error);
     }
   }
 );
@@ -98,23 +101,23 @@ router.post(
 router.post(
   '/profile/removeFavs1/:leisureId/',
   isLoggedIn,
-  async (req, res, next) => {
+  async (req, res) => {
     const { leisureId } = req.params;
     const currentUser = req.session.currentUser;
     try {
-      const user = await User.findById(currentUser._id);
-      const favSpot = await User.findByIdAndUpdate(currentUser._id, {
+      await User.findById(currentUser._id);
+      await User.findByIdAndUpdate(currentUser._id, {
         $pull: { favoriteLeisure: leisureId },
       });
       res.redirect(`/profile`);
-    } catch (error) {
-      console.log(error);
+    } catch {
+      (error) => res.json(error);
     }
   }
 );
 
 // ADD REVIEWS
-router.post('/review/leisure/:leisureId', async (req, res) => {
+router.post('/review/leisure/:leisureId', isLoggedIn, async (req, res) => {
   try {
     const { leisureId } = req.params;
     const { content } = req.body; // req: info about the request; what was sent through the body
@@ -122,21 +125,21 @@ router.post('/review/leisure/:leisureId', async (req, res) => {
     const user = req.session.currentUser;
 
     // update the Leisure Spot with new review that was created
-    const leisureUpdate = await Leisure.findByIdAndUpdate(leisureId, {
+    await Leisure.findByIdAndUpdate(leisureId, {
       $push: { reviews: newReview._id },
     });
 
-    const reviewUpdate = await Review.findByIdAndUpdate(newReview._id, {
+    await Review.findByIdAndUpdate(newReview._id, {
       $push: { author: user._id },
     });
 
     // add the review to the user
-    const userUpdate = await User.findByIdAndUpdate(user._id, {
+    await User.findByIdAndUpdate(user._id, {
       $push: { reviewLeisure: newReview._id },
     });
     res.redirect(`/leisureSpots/${leisureId}`);
-  } catch (error) {
-    console.log(error);
+  } catch {
+    (error) => res.json(error);
   }
 });
 
@@ -161,8 +164,8 @@ router.post(
         $pull: { reviewLeisure: reviewId },
       });
       res.redirect(`/profile`);
-    } catch (error) {
-      console.log(error);
+    } catch {
+      (error) => res.json(error);
     }
   }
 );

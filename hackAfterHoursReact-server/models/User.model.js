@@ -26,7 +26,7 @@ const userSchema = new Schema(
         ref: 'Review',
       },
     ],
-    reviewFooddrink: [
+    reviewFoodDrink: [
       {
         type: Schema.Types.ObjectId,
         ref: 'Review',
@@ -44,10 +44,10 @@ const userSchema = new Schema(
         ref: 'Culture',
       },
     ],
-    favoriteFooddrink: [
+    favoriteFoodDrink: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Fooddrink',
+        ref: 'FoodDrink',
       },
     ],
     favoriteLeisure: [
