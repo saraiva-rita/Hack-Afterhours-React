@@ -27,8 +27,8 @@ app.use('/', cultureRoutes);
 const leisureRoutes = require('./routes/leisure.routes');
 app.use('/', leisureRoutes);
 
-const FoodDrinkRoutes = require('./routes/FoodDrink.routes');
-app.use('/', FoodDrinkRoutes);
+const foodDrinkRoutes = require('./routes/fooddrink.routes');
+app.use('/', foodDrinkRoutes);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require('./error-handling')(app);

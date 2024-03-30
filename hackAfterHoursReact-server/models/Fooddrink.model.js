@@ -42,6 +42,6 @@ const foodDrinkSchema = new Schema(
   }
 );
 
-const FoodDrink = model('Fooddrink', foodDrinkSchema);
+const FoodDrink = model('FoodDrink', foodDrinkSchema);
 
 module.exports = FoodDrink;

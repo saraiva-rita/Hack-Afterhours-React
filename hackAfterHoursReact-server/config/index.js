@@ -26,7 +26,7 @@ const MONGO_URI =
 
 // Middleware configuration
 module.exports = (app) => {
-  // Because this is a server that will accept requests from outside and it will be hosted ona server with a `proxy`, express needs to know that it should trust that setting.
+  // Because this is a server that will accept requests from outside and it will be hosted on a server with a `proxy`, express needs to know that it should trust that setting.
   // Services like heroku use something called a proxy and you need to add this to your server
   app.set('trust proxy', 1);
 
@@ -37,6 +37,7 @@ module.exports = (app) => {
     })
   );
   app.listen(5173, () => 'listening on PORT 5173');
+  // app.listen(5173, () => 'listening on PORT 5173');
 
   // In development environment the app logs
   app.use(logger('dev'));
