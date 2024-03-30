@@ -1,4 +1,9 @@
 /* LOGIN/SIGNUP MENU */
+#signup-page {
+  background: url(/Images/lisboa2.jpg) no-repeat center center/cover;
+  height: 100vh;
+  color: #333;
+}
 .auth-form-wrapper {
   max-width: 450px;
   margin: 40px auto 0;
@@ -25,6 +30,5 @@
   margin-top: 30px;
 }
 .login-a {
-  color: #e6ebf1;
   text-decoration: underline;
 }

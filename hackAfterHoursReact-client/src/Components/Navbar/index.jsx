@@ -6,7 +6,7 @@ function Navbar() {
     <div className="sidebar">
       <div className="logo">
         <Link to="/">
-          <img src="./public/images/ironhack-symbol.png" alt="logo" />
+          <img src="/Images/ironhack-symbol.png" alt="logo" />
         </Link>
         <h2>Hack AfterHours</h2>
       </div>
@@ -24,15 +24,15 @@ function Navbar() {
         <h4>Categories</h4>
         <li>
           <span className="material-symbols-outlined">church</span>
-          <Link to="/cultureSpots">Culture Spots</Link>
+          <Link to="/cultureSpots">Culture</Link>
         </li>
         <li>
           <span className="material-symbols-outlined">fastfood</span>
-          <Link to="/fooddrinkSpots">Food and Drink Spots</Link>
+          <Link to="/foodDrinksSpots">Food and Drinks</Link>
         </li>
         <li>
           <span className="material-symbols-outlined">water_lux</span>
-          <Link to="/leisureSpots">Leisure Spots</Link>
+          <Link to="/leisureSpots">Leisure</Link>
         </li>
         <hr />
         <h4>My Account</h4>

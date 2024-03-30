@@ -2,8 +2,8 @@ import './style.css';
 
 function About() {
   return (
-    <div>
-      <h2>About</h2>
+    <div className="about wrapper">
+      <h2 className="page-title">About</h2>
       <br />
       <div className="carousel-container">
         <div className="carousel-item">

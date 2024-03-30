@@ -3,7 +3,7 @@ import './style.css';
 function Contacts() {
   return (
     <div className="about wrapper">
-      <h2>Contacts</h2>
+      <h2 className="page-title">Contacts</h2>
       <br />
       <div className="container mt-4">
         <div className="contacts-card">

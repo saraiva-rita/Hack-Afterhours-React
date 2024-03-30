@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Navbar from './Components/Navbar';
 import HomePage from './Pages/HomePage';
 import About from './Pages/About';
-import Contacts from './Pages/Contacts';
+import Contacts from './Pages/ContactsPage';
 import Profile from './Pages/Profile';
 import Login from './Pages/Login';
 import SignUp from './Pages/SignUp';
@@ -21,7 +21,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<About />} />
-        <Route path="/contacts" element={<Contacts />} />
+        <Route path="/contact" element={<Contacts />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/auth/login" element={<Login />} />
         <Route path="/auth/signup" element={<SignUp />} />
@@ -29,7 +29,7 @@ function App() {
         <Route path="/cultureSpots/:cultureId" element={<CultureDetails />} />
         <Route path="/leisureSpots" element={<LeisureList />} />
         <Route path="/leisureSpots/:leisureId" element={<LeisureDetails />} />
-        <Route path="/fooddrinkSpots" element={<FoodDrinkList />} />
+        <Route path="/fooddrinksSpots" element={<FoodDrinkList />} />
         <Route
           path="/fooddrinkSpots/:fooddrinkId"
           element={<FoodDrinkDetails />}

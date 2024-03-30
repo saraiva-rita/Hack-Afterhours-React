@@ -19,14 +19,14 @@ function HomePage() {
             />
           </Link>
           <div className="card-body">
-            <h5 className="card-title">Culture Spots</h5>
+            <h5 className="card-title">Culture</h5>
             <Link to="/cultureSpots" className="button">
               See More
             </Link>
           </div>
         </div>
         <div className="card">
-          <Link to="/fooddrinkSpots">
+          <Link to="/foodDrinksSpots">
             <img
               src="./public/images/foodNdrink.jpg"
               className="card-img-top"
@@ -35,7 +35,7 @@ function HomePage() {
           </Link>
           <div className="card-body">
             <h5 className="card-title">Food and Drink</h5>
-            <Link to="/fooddrinkSpots" className="button">
+            <Link to="/foodDrinksSpots" className="button">
               See More
             </Link>
           </div>
@@ -49,7 +49,7 @@ function HomePage() {
             />
           </Link>
           <div className="card-body">
-            <h5 className="card-title">Leisure Spots</h5>
+            <h5 className="card-title">Leisure</h5>
             <Link to="/leisureSpots" className="button">
               See More
             </Link>

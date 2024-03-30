@@ -3,7 +3,7 @@ import './style.css';
 function Profile() {
   return (
     <div className="wrapper">
-      <h2>Profile Page </h2>
+      <h2 className="page-title">Profile Page </h2>
       <br />
       <h3>Hello !</h3>
       <br />
