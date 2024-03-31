@@ -18,9 +18,8 @@ h5 {
   justify-content: space-around;
   width: 100%;
 }
-
 .card-img-top {
-  max-width: 399px;
+  max-width: 490px;
   border-radius: 10px;
   border: 1px solid #cdd7e2;
 }
@@ -33,11 +32,11 @@ h5 {
 }
 .card-title {
   margin: 20px;
-  font-size: 20#e6ebf1;
+  font-size: 21px;
+  color: #e6ebf1;
 }
 
 /* SPOT LIST */
-
 h2 {
   text-align: center;
 }

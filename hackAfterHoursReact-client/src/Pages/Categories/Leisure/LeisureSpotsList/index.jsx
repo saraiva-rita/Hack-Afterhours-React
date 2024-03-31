@@ -9,7 +9,7 @@ function LeisureList() {
   // To fetch the list of leisure spots, set up an effect with the `useEffect` hook:
   useEffect(() => {
     axios
-      .get(`${API_URL}/leisureSpots`)
+      .get(`${API_URL}/api/leisureSpots`)
       .then((response) => {
         setLeisureSpots(response.data);
         console.log(response.data);

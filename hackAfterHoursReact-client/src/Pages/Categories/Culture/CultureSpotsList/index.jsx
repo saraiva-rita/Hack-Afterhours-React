@@ -9,7 +9,7 @@ function CultureList() {
   // To fetch the list of culture spots, set up an effect with the `useEffect` hook:
   useEffect(() => {
     axios
-      .get(`${API_URL}/cultureSpots`)
+      .get(`${API_URL}/api/cultureSpots`)
       .then((response) => {
         setCultureSpots(response.data);
         console.log(response.data);

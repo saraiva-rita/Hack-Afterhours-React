@@ -9,7 +9,7 @@ function FoodDrinkList() {
   // To fetch the list of food and drinks spots, set up an effect with the `useEffect` hook:
   useEffect(() => {
     axios
-      .get(`${API_URL}/foodDrinksSpots`)
+      .get(`${API_URL}/api/foodDrinksSpots`)
       .then((response) => {
         setFoodDrinksSpots(response.data);
         console.log(response.data);
