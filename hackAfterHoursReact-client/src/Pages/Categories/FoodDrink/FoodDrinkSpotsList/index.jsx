@@ -9,7 +9,7 @@ function FoodDrinkList() {
   // To fetch the list of food and drinks spots, set up an effect with the `useEffect` hook:
   useEffect(() => {
     axios
-      .get(`${API_URL}/api/fooddrinkSpots`)
+      .get(`${API_URL}/foodDrinksSpots`)
       .then((response) => {
         setFoodDrinksSpots(response.data);
         console.log(response.data);
@@ -32,7 +32,7 @@ function FoodDrinkList() {
                 <p>{spot.miniDescription}</p>
               </div>
               <div className="button-list">
-                <form action={`/fooddrinksSpots/${spot._id}`} method="get">
+                <form action={`/foodDrinksSpots/${spot._id}`} method="get">
                   <button type="submit" className="button">
                     See more
                   </button>

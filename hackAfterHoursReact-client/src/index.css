@@ -1,0 +1,125 @@
+/* SPOT CARDS */
+.spots-question h2 {
+  color: #e6ebf1;
+  font-size: 40px;
+  font-weight: 800;
+  text-align: center;
+  margin: 60px;
+}
+h5 {
+  color: #e6ebf1;
+  font-size: 20px;
+}
+
+#main-cards {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.card-img-top {
+  max-width: 399px;
+  border-radius: 10px;
+  border: 1px solid #cdd7e2;
+}
+.card-img-top:hover {
+  opacity: 0.8;
+  transform: scale(1.01);
+}
+.card-body {
+  text-align: center;
+}
+.card-title {
+  margin: 20px;
+  font-size: 20#e6ebf1;
+}
+
+/* SPOT LIST */
+
+h2 {
+  text-align: center;
+}
+
+.list-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 30px;
+}
+.each-spot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #cdd7e2;
+  border-radius: 5px;
+  background-color: #839cb8;
+  color: #333;
+  overflow: hidden;
+}
+.each-spot:hover {
+  transform: scale(1.01);
+}
+.each-spot-info {
+  width: 100%;
+}
+.button-list {
+  margin: auto 0 10px;
+}
+.each-spot h3,
+p {
+  padding: 10px;
+  font-size: 15px;
+  text-align: center;
+}
+
+.each-spot img {
+  border-radius: 5px;
+  padding-bottom: 5px;
+  height: 210px;
+  width: 100%;
+}
+
+/* DETAIL SPOT */
+.main-content {
+  text-align: justify;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  max-width: 70%;
+  margin: 0 auto;
+}
+
+.spot-details-img {
+  width: 100%;
+  height: 400px;
+  margin-top: 30px;
+}
+.spot-details-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.spot-details-text p {
+  text-align: justify;
+  padding: 0;
+  margin-bottom: 15px;
+}
+
+.fav-button {
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border: none;
+  color: rgba(255, 0, 0, 0.679);
+}
+.fav-button:hover {
+  cursor: pointer;
+}
+.review {
+  margin-top: 10px;
+}
+.review button {
+  width: 100%;
+}

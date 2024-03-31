@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './Components/Navbar';
 import HomePage from './Pages/HomePage';
 import About from './Pages/About';
@@ -13,15 +13,23 @@ import LeisureList from './Pages/Categories/Leisure/LeisureSpotsList';
 import LeisureDetails from './Pages/Categories/Leisure/LeisureSpotsDetails';
 import FoodDrinkList from './Pages/Categories/FoodDrink/FoodDrinkSpotsList';
 import FoodDrinkDetails from './Pages/Categories/FoodDrink/FoodDrinkSpotsDetails';
+import LandingPage from './Pages/LandingPage';
 
 function App() {
+  const location = useLocation();
+
+  // Check if the current location is not the landing page
+  const isNotLandingPage = location.pathname !== '/';
+
   return (
     <div>
-      <Navbar />
+      {isNotLandingPage && <Navbar />}
+      {/* Render Navbar if not on LandingPage */}
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/index" element={<HomePage />} />
         <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contacts />} />
+        <Route path="/contacts" element={<Contacts />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/auth/login" element={<Login />} />
         <Route path="/auth/signup" element={<SignUp />} />
@@ -29,9 +37,9 @@ function App() {
         <Route path="/cultureSpots/:cultureId" element={<CultureDetails />} />
         <Route path="/leisureSpots" element={<LeisureList />} />
         <Route path="/leisureSpots/:leisureId" element={<LeisureDetails />} />
-        <Route path="/fooddrinksSpots" element={<FoodDrinkList />} />
+        <Route path="/foodDrinksSpots" element={<FoodDrinkList />} />
         <Route
-          path="/fooddrinkSpots/:fooddrinkId"
+          path="/foodDrinksSpots/:fooddrinkId"
           element={<FoodDrinkDetails />}
         />
       </Routes>

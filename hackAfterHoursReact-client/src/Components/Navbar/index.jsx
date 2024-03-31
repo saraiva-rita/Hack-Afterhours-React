@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 function Navbar() {
   return (
     <div className="sidebar">
-      <div className="logo">
-        <Link to="/">
+      <div>
+        <Link to="/index" className="logo">
           <img src="/Images/ironhack-symbol.png" alt="logo" />
+          <h2>Hack AfterHours</h2>
         </Link>
-        <h2>Hack AfterHours</h2>
       </div>
       <ul className="links">
         <h4>Home</h4>
