@@ -37,7 +37,6 @@ module.exports = (app) => {
     })
   );
   app.listen(5173, () => 'listening on PORT 5173');
-  // app.listen(5173, () => 'listening on PORT 5173');
 
   // In development environment the app logs
   app.use(logger('dev'));

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const isLoggedIn = require('../middleware/isLoggedIn');
+const isLoggedIn = require('../middleware/isLoggedIn.js');
 
 // Requiring Models
 const Culture = require('../models/Culture.model.js');
@@ -23,19 +23,16 @@ router.get('/cultureSpots/:cultureId', isLoggedIn, async (req, res) => {
   try {
     //ES6 Object Destructuring with cultureId route param
     const { cultureId } = req.params;
-    let isFav;
     const currentUser = req.session.currentUser;
 
+    let isFav = false;
     const thisUser = await User.findById(currentUser._id);
     if (thisUser.favoriteCulture.includes(`${cultureId}`)) {
       isFav = true;
     }
 
-    // Find Culture Spot via its Id inside the Database
-    let foundCultureSpot = await Culture.findById(cultureId);
-
-    // Populate the Culture Spot with reviews and reviews with authors
-    await foundCultureSpot.populate({
+    // Find Culture Spot via its Id inside the Database and populate it with reviews with authors
+    let foundCultureSpot = await Culture.findById(cultureId).populate({
       path: 'reviews',
       populate: {
         path: 'author',
@@ -43,13 +40,13 @@ router.get('/cultureSpots/:cultureId', isLoggedIn, async (req, res) => {
       },
     });
 
-    res.json(foundCultureSpot, isFav, currentUser);
-  } catch {
-    (error) => res.json(error);
+    res.json({ foundCultureSpot, isFav });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 
-// Add Favorites Spots
+// Add Favorites Culture Spots
 router.post(
   '/cultureSpots/addFavs/:cultureId/',
   isLoggedIn,
@@ -58,24 +55,42 @@ router.post(
     const currentUser = req.session.currentUser;
 
     try {
-      await User.findById(currentUser._id);
-      await User.findByIdAndUpdate(currentUser._id, {
-        $push: { favoriteCulture: cultureId },
-      });
+      // Find the user by ID
+      const user = await User.findById(currentUser._id);
+      if (!user) {
+        return res.status(404).json({ message: 'User not found.' });
+      }
+
+      // Check if the culture spot is already in favorites
+      if (user.favoriteCulture.includes(cultureId)) {
+        return res
+          .status(400)
+          .json({ message: 'This Culture Spot already in your favorites.' });
+      }
+
+      // Add the culture spot to favorites
+      await User.findByIdAndUpdate(
+        currentUser._id,
+        {
+          $push: { favoriteCulture: cultureId },
+        },
+        { new: true }
+      );
       res.json({
         message: 'This Culture Spot was added to your favorites successfully.',
       });
-      res.redirect(`/cultureSpots/${cultureId}`);
+      res.json({ foundCultureSpot, isFav, currentUser });
     } catch (error) {
       res.status(500).json({
         message:
-          'An error occured while adding the Culture Spot to your favorites',
+          'An error occurred while adding the Culture Spot to your favorites.',
+        error: error.message,
       });
     }
   }
 );
 
-// Remove favorite from culture spot detail
+// Remove favorite from culture spot details
 router.delete(
   '/cultureSpots/removeFavs/:cultureId/',
   isLoggedIn,
@@ -83,13 +98,25 @@ router.delete(
     const { cultureId } = req.params;
     const currentUser = req.session.currentUser;
     try {
-      await User.findById(currentUser._id);
+      // Find the user by ID
+      const user = await User.findById(currentUser._id);
+      if (!user) {
+        return res.status(404).json({ message: 'User not found.' });
+      }
+
+      // Update the user to remove the favorite culture spot
       await User.findByIdAndUpdate(currentUser._id, {
         $pull: { favoriteCulture: cultureId },
       });
-      res.redirect(`/cultureSpots/${cultureId}`);
-    } catch {
-      (error) => res.json(error);
+
+      // Respond with success message
+      res.json({
+        success: true,
+        message: 'Culture Spot removed from favorites successfully',
+      });
+    } catch (error) {
+      // Handle errors
+      res.status(500).json({ success: false, error: error.message });
     }
   }
 );
@@ -102,67 +129,89 @@ router.post(
     const { cultureId } = req.params;
     const currentUser = req.session.currentUser;
     try {
-      await User.findById(currentUser._id);
+      // Find the user by ID (Optional)
+      const user = await User.findById(currentUser._id);
+      if (!user) {
+        return res.status(404).json({ message: 'User not found.' });
+      }
+
+      // Update the user to remove the favorite culture spot
       await User.findByIdAndUpdate(currentUser._id, {
         $pull: { favoriteCulture: cultureId },
       });
-      res.redirect(`/profile`);
-    } catch {
-      (error) => res.json(error);
+
+      // Respond with success message or updated list of favorite culture spots
+      res.json({
+        success: true,
+        message: 'Spot removed from favorites successfully',
+      });
+    } catch (error) {
+      // Handle errors
+      res.status(500).json({ success: false, error: error.message });
     }
   }
 );
 
 // ADD REVIEWS
-router.post('/review/culture/:cultureId', isLoggedIn, async (req, res) => {
+router.post('/culture/:cultureId/review', isLoggedIn, async (req, res) => {
   try {
     const { cultureId } = req.params;
-    const { content } = req.body; // req: info about the request; what was sent through the body
-    const newReview = await Review.create({ content });
-    const user = req.session.currentUser;
+    const { content } = req.body;
+    const currentUser = req.session.currentUser;
 
-    // update the Culture Spot with new review that was created
+    // Create a new review
+    const newReview = await Review.create({ content });
+
+    // Update the Culture Spot with new review
     await Culture.findByIdAndUpdate(cultureId, {
       $push: { reviews: newReview._id },
     });
 
+    // Update the new review with the author
     await Review.findByIdAndUpdate(newReview._id, {
-      $push: { author: user._id },
+      $push: { author: currentUser._id },
     });
 
-    // add the review to the user
-    await User.findByIdAndUpdate(user._id, {
+    // Add the review to the user
+    await User.findByIdAndUpdate(currentUser._id, {
       $push: { reviewCulture: newReview._id },
     });
-    res.redirect(`/cultureSpots/${cultureId}`);
-  } catch {
-    (error) => res.json(error);
+
+    // Respond with the new review or a success message
+    res.json({ success: true, review: newReview });
+  } catch (error) {
+    // Handle errors
+    res.status(500).json({ success: false, error: error.message });
   }
 });
 
 // DELETE REVIEW
 router.delete(
-  '/:reviewId/culture-delete/:cultureId',
+  '/culture/:cultureId/reviews/:reviewId',
   isLoggedIn,
   async (req, res) => {
     const { cultureId, reviewId } = req.params;
-    const user = req.session.currentUser;
+    const currentUser = req.session.currentUser;
 
     try {
+      // Remove the review from the database
       await Review.findByIdAndRemove(reviewId);
 
-      // update the Culture Spot after remove the review
+      // Update the culture spot by removing the review reference
       await Culture.findByIdAndUpdate(cultureId, {
         $pull: { reviews: reviewId },
       });
 
-      // remove the review from the user
-      await User.findByIdAndUpdate(user._id, {
+      // Remove the review reference from the user
+      await User.findByIdAndUpdate(currentUser._id, {
         $pull: { reviewCulture: reviewId },
       });
-      res.redirect(`/profile`);
-    } catch {
-      (error) => res.json(error);
+
+      // Respond with a success message or the updated spot data
+      res.json({ success: true, message: 'Review deleted successfully' });
+    } catch (error) {
+      // Handle errors
+      res.status(500).json({ success: false, error: error.message });
     }
   }
 );

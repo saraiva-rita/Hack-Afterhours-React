@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 // Require FoodDrink Model
-const FoodDrink = require('../models/FoodDrink.model.js');
+const FoodDrink = require('../models/Fooddrink.model.js');
 
 const MONGO_URI =
   process.env.MONGODB_URI ||
